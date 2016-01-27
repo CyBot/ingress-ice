@@ -180,14 +180,23 @@ function main() {
     if (config.timestamp) {
       addTimestamp(getDateTime(0), config.iitc);
     }
-    if (config.format == undefined || config.format == '') {
-      lastScreen = 'ice-' + getDateTime(1) + '.png';
+    if (config.filename) {
+      lastScreen = config.filename;
+      file = lastScreen;
     } else {
-      lastScreen = 'ice-' + getDateTime(1) + '.' + config.format;
+      if (config.format == undefined || config.format == '') {
+        lastScreen = 'ice-' + getDateTime(1) + '.png';
+      } else {
+        lastScreen = 'ice-' + getDateTime(1) + '.' + config.format;
+      }
+      file = folder + lastScreen;
     }
-    file = folder + lastScreen;
     s(file);
     postprocess(lastScreen);
+    if ((curnum >= ssnum)&&(ssnum !== 0)) {
+      announce('Finished sucessfully. Exiting...\nThanks for using ingress-ice!');
+      phantom.exit()
+    }
   }, 2000);
 }
 

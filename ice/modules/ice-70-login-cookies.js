@@ -89,7 +89,7 @@ function afterCookieLogin() {
       addIitc();
     }
     setTimeout(function () {
-      announce('Will start screenshooting in ' + config.delay/1000 + ' seconds...');
+      announce('Will start screenshooting in ' + loginTimeout/1000 + ' seconds...');
       if (((config.minlevel > 1)||(config.maxlevel < 8)) && !config.iitc) {
         setMinMax(config.minlevel, config.maxlevel, config.iitc);
       } else if (!config.iitc) {
@@ -99,9 +99,10 @@ function afterCookieLogin() {
       }
       hideDebris(config.iitc);
       prepare(config.iitc, config.width, config.height);
-      announce('The first screenshot may not contain all portals, it is intended for you to check framing.');
-      main();
-      setInterval(main, config.delay);
+      //announce('The first screenshot may not contain all portals, it is intended for you to check framing.');
+      //main();
+      //setInterval(main, config.delay);
+      setTimeout(main, loginTimeout);
     }, loginTimeout);
   });
 }

@@ -21,15 +21,21 @@ if (
       typeof config.CSRF == 'undefined' || config.CSRF === ''
     )
   ) || (
-    typeof config.area == 'undefined' || config.area === ''
+    (typeof config.area == 'undefined' || config.area === '') && !args[2]
   )) {
   quit('No login/password/area link specified. You need to reconfigure ice:\n - Double-click reconfigure.cmd on Windows;\n - Start ./ingress-ice -r on Linux/Mac OS X/*BSD;');
 }
 
-var folder = fs.workingDirectory + '/';
-var ssnum = 0;
+var folder = '/tmp/'; //fs.workingDirectory + '/';
+var ssnum = 1; //0;
 if (args[2]) {
-  ssnum = parseInt(args[2], 10);
+  config.area = args[2];
+}
+//if (args[2]) {
+//  ssnum = parseInt(args[2], 10);
+//}
+if (args[3]) {
+  config.filename = args[3];
 }
 
 /**
@@ -41,7 +47,7 @@ var curnum       = 0;
 * Delay between logging in and checking if successful
 * @default
 */
-var loginTimeout = 10 * 1000;
+var loginTimeout = 15 * 1000;
 
 /**
 * twostep auth trigger
